@@ -30,7 +30,7 @@ export class TurnService {
   createTurn(turnDate: string, userId: number) {
     return this.http.get<TurnDetails>(this.baseUrl + 'CreateTurn?turnDate=' + turnDate + '&userId=' + userId)
   }
-  getAllFreeTurns(date: Date) {
-    return this.http.get<Date[]>(this.baseUrl + 'GetAllFreeTurns?date=' + date);
+  getAllFreeTurns(date: string) {
+    return this.http.get<string[]>(this.baseUrl + 'GetAllFreeTurns?date=' + date);
   }
 }

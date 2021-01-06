@@ -1,15 +1,22 @@
 <div class="container">
-    <p>בחר את התור הרצוי עבורך</p>
-    <mat-form-field>
+    <mat-form-field *ngIf='!freeTurns'>
         <mat-label>בחר תאריך</mat-label>
-        <input matInput placeholder="בחר תאריך" [(ngModel)]='turn.turnDate' type="datetime-local" name='date' id="date"
-            #date="ngModel" required>
-        <mat-error *ngIf="date.errors?.required">יש לבחור תאריך</mat-error>
-        <div *ngIf='turn.validDate'>כבר קים תור בזמן זה</div>
-        <div *ngIf='turn.dateBefore' class="red">התאריך עבר כבר</div>
+        <input matInput placeholder="בחר תאריך" [(ngModel)]='myDate' type="date" name='date' id="date" required>
+        <div *ngIf='dateBefore' class="red">התור עבר כבר</div>
+    </mat-form-field>
+    <button mat-stroked-button (click)='getTurns()' *ngIf='!freeTurns'>אישור</button>
+    <h4 *ngIf='freeTurns'>בחר את השעה הרצויה</h4>
+    <mat-form-field appearance="fill" *ngIf='freeTurns'>
+        <mat-label>בחר שעה</mat-label>
+        <mat-select [(ngModel)]='turn.turnDate'>
+            <mat-option *ngFor="let turn of freeTurns.turns" [value]="turn">
+                {{turn|date:'HH:mm'}}
+            </mat-option>
+        </mat-select>
     </mat-form-field>
     <div>
-        <button mat-stroked-button (click)='createTurn()'>אישור</button>
+        <button mat-stroked-button (click)='ok()' *ngIf='freeTurns'>אישור</button>
         <button mat-stroked-button mat-dialog-close>סגור</button>
     </div>
+    <div *ngIf='turn.dateBefore' class="red">התאריך עבר כבר</div>
 </div>

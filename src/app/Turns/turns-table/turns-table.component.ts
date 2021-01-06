@@ -104,7 +104,7 @@ export class TurnsTableComponent implements OnInit {
     });
     snackref.onAction
   }
-  update(turn: Turns) {
+  update(turn: Turns) {debugger
     let turnDate = Date.parse(turn.turnDate)
     let now = Date.parse(new Date().toDateString());
 
@@ -121,23 +121,30 @@ export class TurnsTableComponent implements OnInit {
         this.turns.data[this.turns.data.findIndex(x => x == turn)].validDate = true;
     }
   }
-  openNewTurnDialog() {
+  openNewTurnDialog(create: boolean, turnId: number = 0) {
     var turn: Turns = new Turns();
     turn.userId = this.loginServies.user.userId;
     turn.firstName = this.loginServies.user.firstName;
     turn.turnDate = new Date().toDateString();
     turn.validDate = false;
+    if (!create)
+      turn.turnId = turnId;
     const dialogRef = this.dialog.open(TurnComponent, {
-      height: '230px',
+      height: '250px',
       width: '300px',
       data: {
         turn: turn,
-        allTurns: this.turns.data
+        allTurns: this.turns.data,
+        create: create
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.getTurns();
+      if (result) {
+        this.update(result);
+      }
+      else
+        this.getTurns();
     });
   }
 }
