@@ -22,6 +22,6 @@ export class LoginService {
   createUser(firstName:string,userName: string, password: string): Observable<User> {
     return this.http.get<User>(this.loginUrl + 'CreateUser?firstName='+firstName+'&userName=' + userName + '&password=' + password);
   }
- 
+ //
 
 }
