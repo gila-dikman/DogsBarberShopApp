@@ -1,0 +1,80 @@
+<mat-toolbar>
+  <!-- <span>המספרה של יורם</span> -->
+  <!-- <img src="../../../assets/images/dog.jpg"> -->
+
+</mat-toolbar>
+<div class="container">
+  <div class="searchContainer">
+    <div>
+      <mat-form-field>
+        <mat-label>הקש שם לחיפוש</mat-label>
+        <input matInput placeholder="שם לחיפוש" [(ngModel)]='nameToSearch'>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>בחר תאריך לחיפוש</mat-label>
+        <input matInput placeholder="בחר תאריך" [(ngModel)]='dateToSearch' type="date">
+      </mat-form-field>
+    </div>
+    <div>
+      <button mat-stroked-button (click)='cancelSearch()'>
+        בטל חיפוש
+      </button>
+    </div>
+  </div>
+
+  <div class="newTurn">
+    <button mat-stroked-button (click)='openNewTurnDialog()'>קבע תור חדש </button>
+  </div>
+  <table mat-table [dataSource]="filterTurns" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef> שם</th>
+      <td mat-cell *matCellDef="let turn">
+        <span>{{turn.firstName}}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="turnDate">
+      <th mat-header-cell *matHeaderCellDef> זמן הגעה </th>
+      <td mat-cell *matCellDef="let turn">
+        <span *ngIf='!turn.update'> {{turn.turnDate|date:'HH:mm d/M/yyyy'}} </span>
+        <span *ngIf='turn.update'>
+          <mat-form-field>
+            <mat-label>בחר תאריך</mat-label>
+            <input matInput placeholder="בחר תאריך" [(ngModel)]='turn.turnDate' type="datetime-local" name='dateEdit'
+              (click)="$event.stopPropagation()">
+            <div *ngIf='turn.validDate'>כבר קים תור בזמן זה</div>
+            <div *ngIf='turn.dateBefore' class="red">התאריך עבר כבר</div>
+
+          </mat-form-field>
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let turn">
+        <button mat-icon-button *ngIf='turn.userId==loginServies.user.userId && !turn.update'
+          (click)='turn.update=!turn.update; $event.stopPropagation()'>
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="basic" *ngIf='turn.userId==loginServies.user.userId && turn.update'
+          (click)='update(turn); $event.stopPropagation()'>
+          <mat-icon>done_all</mat-icon>
+        </button>
+        <button mat-icon-button color="basic" (click)="delete(turn.turnId); $event.stopPropagation()"
+          *ngIf='turn.userId==loginServies.user.userId'>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)='openTurnDetailsDialog(row.turnId)'></tr>
+
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+</div>

@@ -1,0 +1,39 @@
+<mat-card class="container ">
+    <img src="../../assets/images/dog-1123016_640.jpg" class="image">
+    <div *ngIf='isCreateUser'>
+        <mat-form-field>
+            <mat-label>שם פרטי</mat-label>
+            <input matInput required placeholder="First Name" [(ngModel)]='user.firstName' name="firstName"
+                id="firstName" #firstName="ngModel">
+            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+            <mat-error *ngIf="firstName.errors?.required && (firstName.dirty || firstName.touched)">שדה חובה
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field>
+            <mat-label>שם משתמש</mat-label>
+            <input matInput required placeholder="User Name" [(ngModel)]='user.userName' name="userName" id="userName"
+                #userName="ngModel">
+            <!-- <mat-icon matSuffix>sentiment_very_satisfied</mat-icon> -->
+            <mat-error *ngIf="userName.errors?.required && ( userName.touched)">שדה חובה</mat-error>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field>
+            <mat-label>סיסמא</mat-label>
+            <input matInput required placeholder="password" [(ngModel)]='user.password' name="password" type="password"
+                id="password" #password="ngModel">
+            <mat-error *ngIf="password.errors?.required && (password.dirty || password.touched)">שדה חובה
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <button mat-stroked-button (click)='checkLogin()' *ngIf='!isCreateUser'>הכנס</button>
+    <button mat-stroked-button (click)='createUser()' *ngIf='isCreateUser'>הרשם</button>
+    <button mat-stroked-button (click)='isCreateUser=!isCreateUser;invalidUser=false' *ngIf='!isCreateUser'
+        type="submit">עדין לא נרשמת?
+        הרשם כעת!</button>
+    <div *ngIf='invalidUserName' class="red">אופס... שם המשתמש כבר תפוס</div>
+    <div *ngIf='invalidUser' class="red">אופס... שם המשתמש או הסיסמא שגויים</div>
+</mat-card>

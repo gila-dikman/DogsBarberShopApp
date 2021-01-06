@@ -1,0 +1,50 @@
+mat-toolbar{
+  background-image: url("../../../assets/images/dog.jpg");
+  background-repeat: no-repeat, repeat;
+  background-size: cover;
+  // background-position: center;
+  height: 150px !important;
+}
+img{
+  width: 100%;
+  align-items: center;
+  height: 80px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left:auto;
+  margin-right: auto;
+}
+.searchContainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  align-items: baseline;
+  align-content: space-between;
+  justify-content: space-between;
+  mat-form-field{
+    margin: 10px;
+  }
+  button{
+    margin: 10px;
+  }
+}
+.newTurn{
+  margin-bottom: 15px;
+}
+
+table {
+  width:40%;
+  align-content: space-between;
+}
+mat-paginator{
+  width: 40%;
+  margin: 1px;
+  
+}
+.red{
+  color: red;
+}

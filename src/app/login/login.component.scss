@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    width: 230px;
+    height: 350px;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top: 150px;
+    padding-top: 20px;
+}
+.image{
+    width: 100%;
+    height: 30%;
+    margin-bottom: 15px;
+}
+button{
+    margin: 5px;
+}
+.red{
+    color: red;;
+}

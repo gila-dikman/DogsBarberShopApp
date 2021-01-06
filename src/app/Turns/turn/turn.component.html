@@ -1,0 +1,15 @@
+<div class="container">
+    <p>בחר את התור הרצוי עבורך</p>
+    <mat-form-field>
+        <mat-label>בחר תאריך</mat-label>
+        <input matInput placeholder="בחר תאריך" [(ngModel)]='turn.turnDate' type="datetime-local" name='date' id="date"
+            #date="ngModel" required>
+        <mat-error *ngIf="date.errors?.required">יש לבחור תאריך</mat-error>
+        <div *ngIf='turn.validDate'>כבר קים תור בזמן זה</div>
+        <div *ngIf='turn.dateBefore' class="red">התאריך עבר כבר</div>
+    </mat-form-field>
+    <div>
+        <button mat-stroked-button (click)='createTurn()'>אישור</button>
+        <button mat-stroked-button mat-dialog-close>סגור</button>
+    </div>
+</div>
